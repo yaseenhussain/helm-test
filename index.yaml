@@ -1,0 +1,24 @@
+apiVersion: v1
+entries:
+  wireless-ready-itm:
+  - apiVersion: v2
+    appVersion: v1.1.1
+    created: "2021-06-25T10:35:53.913350712Z"
+    description: Monitor traffic intersections via IP cameras to optmize traffic flow. Detect vehicles and pedestrians, record vehicle types and counts, calculate velocity and acceleration, and more.
+    name: wireless-ready-itm
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/itm-https.tgz
+    version: "1.3.0"
+  social-distancing:
+  - apiVersion: v2
+    appVersion: v1.1.1
+    created: "2021-06-25T10:35:53.913350712Z"
+    description: Use video analytics solutions based on Inted Distribution of OpenVino toolkit models to support retail settings for pandemic scenarios, helping to reduce public health risks.
+    name: social-distancing
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/social-distancing-retail.tgz
+    version: "1.0.0"
+generated: "2021-05-26T14:59:11.656550034-04:00"
+
