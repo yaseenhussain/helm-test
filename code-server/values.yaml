@@ -78,7 +78,7 @@ extraVars: []
 volumePermissions:
   enabled: true
   securityContext:
-    runAsUser: 0
+    runAsUser: 1000
 
 ## Pod Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
