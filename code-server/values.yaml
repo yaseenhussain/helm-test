@@ -50,6 +50,8 @@ ingress:
   #  - secretName: code-server
   #    hosts:
   #      - code-server.example.loc
+route:
+  enabled: true
 
 # Optional additional arguments
 extraArgs: []
