@@ -30,5 +30,15 @@ entries:
     urls:
     - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/code-server.tgz
     version: "1.0.0"
+  jenkins:
+  - apiVersion: v2
+    appVersion: v1.1.1
+    created: "2021-06-25T10:35:53.913350712Z"
+    description: Jenkins
+    name: jenkins
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/jenkins.tgz
+    version: "1.0.0"
 generated: "2021-05-26T14:59:11.656550034-04:00"
 
