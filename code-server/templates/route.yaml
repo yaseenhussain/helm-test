@@ -1,3 +1,6 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "code-server.fullname" . -}}
+{{- $svcPort := .Values.service.port -}}
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
@@ -6,6 +9,6 @@ metadata:
 spec:
   to:
     kind: Service
-    name: {{ include "code-server.fullname" . }}
+    name: {{ $fullName }}
   port:
-    targetPort: http
+    targetPort: {{ $svcPort }} 
