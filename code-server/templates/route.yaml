@@ -1,0 +1,11 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: code-server
+  namespace: {{ .Release.Namespace }}
+spec:
+  to:
+    kind: Service
+    name: {{ include "code-server.fullname" . }}
+  port:
+    targetPort: http
