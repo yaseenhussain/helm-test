@@ -16,7 +16,7 @@ global:
   namespace: devcloud
   
 itm:
-  clusterAPIAddress: "https://api.sandbox.cfa.devcloud.intel.com:6443"
+  clusterAPIAddress: "https://api.cfa.devcloud.intel.com:6443"
   serviceAccount:
     name: devcloud
     

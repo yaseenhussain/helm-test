@@ -4,7 +4,7 @@
 
 replicaCount: 1
 image:
-  repository: docker.io/inteldevcloud/grafana
+  repository: default-route-openshift-image-registry.apps.sandbox.cfa.devcloud.intel.com/devcloud-ri/grafana
   pullPolicy: IfNotPresent
   tag: itm
 imagePullSecrets: []
