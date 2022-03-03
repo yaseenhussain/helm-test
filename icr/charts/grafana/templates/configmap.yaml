@@ -1,0 +1,196 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-config
+  namespace: {{ .Values.global.namespace }}
+data:
+  intelligent_conference_room.json: | 
+    {
+        "annotations": {
+            "list": [
+                {
+                    "builtIn": 1,
+                    "datasource": "-- Grafana --",
+                    "enable": true,
+                    "hide": true,
+                    "iconColor": "rgba(0, 211, 255, 1)",
+                    "name": "Annotations & Alerts",
+                    "type": "dashboard"
+                }
+            ]
+        },
+        "editable": true,
+        "gnetId": null,
+        "graphTooltip": 0,
+        "id": 18,
+        "iteration": 1627450849097,
+        "links": [],
+        "panels": [
+            {
+                "gridPos": {
+                    "h": 14,
+                    "w": 24,
+                    "x": 0,
+                    "y": 0
+                },
+                "header_js": "{}",
+                "id": 8,
+                "links": [],
+                "method": "iframe",
+                "mode": "html",
+                "options": {},
+                "params_js": "// {\n// from:ctrl.range.from.format('x'),  // x is unix ms timestamp\n// to:ctrl.range.to.format('x'), \n// height:ctrl.height,\n// now:Date.now(),\n// interval: ctrl.template('$__interval'),\n// sample: 'Not escaped: $__interval',\n// since:ctrl.lastRequestTime\n// }",
+                "request": "http",
+                "responseType": "text",
+                "showErrors": true,
+                "showTime": false,
+                "showTimeFormat": "LTS",
+                "showTimePrefix": null,
+                "showTimeValue": "request",
+                "skipSameURL": false,
+                "targets": [
+                    {
+                        "groupBy": [
+                            {
+                                "params": [
+                                    "$__interval"
+                                ],
+                                "type": "time"
+                            },
+                            {
+                                "params": [
+                                    "null"
+                                ],
+                                "type": "fill"
+                            }
+                        ],
+                        "orderByTime": "ASC",
+                        "policy": "default",
+                        "refId": "A",
+                        "resultFormat": "time_series",
+                        "select": [
+                            [
+                                {
+                                    "params": [
+                                        "value"
+                                    ],
+                                    "type": "field"
+                                },
+                                {
+                                    "params": [],
+                                    "type": "mean"
+                                }
+                            ]
+                        ],
+                        "tags": []
+                    }
+                ],
+                "templateResponse": true,
+                "timeFrom": null,
+                "title": "Conference Room Live Streaming",
+                "type": "ryantxu-ajax-panel",
+                "url": "http://intelligent-conference-room-{{ .Values.global.namespace}}.{{ .Values.global.clusterAPIAddress }}",
+                "withCredentials": false
+            },
+            {
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 14
+                },
+                "header_js": "{}",
+                "id": 23,
+                "method": "iframe",
+                "mode": "html",
+                "options": {},
+                "params_js": "{\n// from:ctrl.range.from.format('x'),  // x is unix ms timestamp\n// to:ctrl.range.to.format('x'), \n// height:ctrl.height,\n// now:Date.now(),\n// interval: ctrl.template('$__interval'),\n// sample: 'Not escaped: $__interval',\n// since:ctrl.lastRequestTime\n}",
+                "request": "http",
+                "responseType": "text",
+                "showErrors": true,
+                "showTime": false,
+                "showTimeFormat": "LTS",
+                "showTimePrefix": null,
+                "showTimeValue": "request",
+                "skipSameURL": false,
+                "templateResponse": true,
+                "timeFrom": null,
+                "timeShift": null,
+                "title": "Meeting Transcript",
+                "type": "ryantxu-ajax-panel",
+                "url": "http://intelligent-conference-room-{{ .Values.global.namespace}}.{{ .Values.global.clusterAPIAddress}}/transcripts",
+                "withCredentials": false
+            },
+            {
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 14
+                },
+                "header_js": "{\n  Accept: 'text/plain'\n}",
+                "id": 24,
+                "method": "iframe",
+                "mode": "text",
+                "options": {},
+                "params_js": "{\n// from:ctrl.range.from.format('x'),  // x is unix ms timestamp\n// to:ctrl.range.to.format('x'), \n// height:ctrl.height,\n// now:Date.now(),\n// interval: ctrl.template('$__interval'),\n// sample: 'Not escaped: $__interval',\n// since:ctrl.lastRequestTime\n}",
+                "request": "http",
+                "responseType": "json",
+                "showErrors": true,
+                "showTime": false,
+                "showTimeFormat": "LTS",
+                "showTimePrefix": null,
+                "showTimeValue": "request",
+                "skipSameURL": true,
+                "templateResponse": true,
+                "timeFrom": null,
+                "timeShift": null,
+                "title": "List of Attendees",
+                "type": "ryantxu-ajax-panel",
+                "url": "http://intelligent-conference-room-{{ .Values.global.namespace}}.{{ .Values.global.clusterAPIAddress}}/attendees",
+                "withCredentials": false
+            }
+        ],
+        "refresh": "",
+        "schemaVersion": 19,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+            "list": []
+        },
+        "time": {
+            "from": "2019-07-25T05:24:26.000Z",
+            "to": "now"
+        },
+        "timepicker": {
+            "refresh_intervals": [
+                "5s",
+                "10s",
+                "30s",
+                "1m",
+                "5m",
+                "15m",
+                "30m",
+                "1h",
+                "2h",
+                "1d"
+            ],
+            "time_options": [
+                "5m",
+                "15m",
+                "1h",
+                "6h",
+                "12h",
+                "24h",
+                "2d",
+                "7d",
+                "30d"
+            ]
+        },
+        "timezone": "",
+        "title": "Intelligent Conference Room",
+        "uid": "U_ntiTg7z",
+        "version": 4
+    }
+
+

@@ -1,0 +1,11 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: intelligent-conference-room
+  namespace: {{ .Values.global.namespace }}
+spec:
+  to:
+    kind: Service
+    name: icr-intelligent-conference-room
+  port:
+    targetPort: 5000

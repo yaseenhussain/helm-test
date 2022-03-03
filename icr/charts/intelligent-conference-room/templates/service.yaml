@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "intelligent-conference-room.fullname" . }}
+  labels:
+    {{- include "intelligent-conference-room.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      nodePort: {{ .Values.service.nodePort }}
+  selector:
+    {{- include "intelligent-conference-room.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: intelligent-conference-room-config
+  namespace: {{ .Values.global.namespace }}
+data:
+{{ (.Files.Glob "configs/*").AsConfig | indent 2 }}

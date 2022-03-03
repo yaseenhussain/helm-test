@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "intelligent-conference-room.fullname" . }}
+  labels:
+    {{- include "intelligent-conference-room.labels" . | nindent 4 }}
+  namespace: {{ .Values.global.namespace }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "intelligent-conference-room.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "intelligent-conference-room.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - image: "rishiintel/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          name: {{ .Chart.Name }}
+          env:
+            - name: LOCAL_HOST
+              value: "{{ .Values.serverIP }}"
+            - name: INFLUXDB_PORT
+              value: "{{ .Values.influxdbPort }}"
+            - name: GRAFANA_PORT
+              value: "{{ .Values.grafanaPort }}"
+            - name: NAMESPACE
+              value: "{{ .Values.global.namespace }}"
+            - name: CLUSTER_API_ADDRESS
+              value: "{{ .Values.clusterAPIAddress }}"
+            - name: EXTERNAL_ADDRESS
+              value: "{{ .Values.externalAddress }}"
+          volumeMounts:
+          - mountPath: /resources/config.json
+            name: intelligent-conference-room-config
+            readOnly: true
+            subPath: config.json
+      volumes:
+      - configMap:
+          name: intelligent-conference-room-config
+        name: intelligent-conference-room-config
