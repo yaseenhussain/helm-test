@@ -6,6 +6,6 @@ metadata:
 spec:
   to:
     kind: Service
-    name: icr-intelligent-conference-room
+    name: {{ include "intelligent-conference-room.fullname" . }}
   port:
     targetPort: 5000
