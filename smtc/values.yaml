@@ -49,8 +49,7 @@ cloudWebExternalIP: "172.31.12.125"
 
 # officeLocations provide simulated GPS coordinates for the Smart City & Stadium
 # offices
-officeLocations:
-[{
+officeLocations: '[{
     "scenario": "traffic",
     "address": "Dawson Creek",
     "location": {
@@ -716,7 +715,7 @@ officeLocations:
         "simsn": "cams2o1q7",
         "simfile": "_svcq.mp4$"
     }]
-}]
+}]'
 
 
 # networkPreference specifies the analytics model precision: FP32, INT8 or FP16, or their 
@@ -750,3 +749,4 @@ connector:
 webrtc:
     udpPort: 10000
     streamingLimit: 10
+
