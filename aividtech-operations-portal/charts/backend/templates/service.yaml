@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: operational-portal-backend-service
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: operational-portal-backend
+    app.kubernetes.io/name: backend
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - port: {{ .Values.service.port }}
+  selector:
+    app: operational-portal-backend

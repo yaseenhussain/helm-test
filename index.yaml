@@ -60,5 +60,15 @@ entries:
     urls:
     - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/smtc.tgz
     version: "1.0.0"
+  operations-portal:
+  - apiVersion: v2
+    appVersion: v1.1.1
+    created: "2021-06-25T10:35:53.913350712Z"
+    description: Aividtech Operations Portal
+    name: operations portal
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/operations-portal.tgz
+    version: "1.0.0"
 generated: "2021-05-26T14:59:11.656550034-04:00"
 

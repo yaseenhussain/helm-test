@@ -1,0 +1,104 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: operations-portal-mongodb
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app.kubernetes.io/component: mongodb
+    app.kubernetes.io/instance: aivid
+    app.kubernetes.io/name: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: mongodb
+      app.kubernetes.io/instance: aivid
+      app.kubernetes.io/name: mongodb
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/component: mongodb
+        app.kubernetes.io/instance: aivid
+        app.kubernetes.io/name: mongodb
+    spec:
+      initContainers:
+        - name: init
+          image: 'aividtech/busybox:latest'
+          command:
+            - /bin/chown
+            - '0:0'
+            - /bitnami/mongodb
+          volumeMounts:
+            - name: aivid-mongo-db
+              mountPath: /bitnami/mongodb
+          imagePullPolicy: IfNotPresent
+        - name: init-2
+          image: 'aividtech/busybox:latest'
+          command:
+            - /bin/chmod
+            - '-R'
+            - '777'
+            - /bitnami/mongodb
+          resources: {}
+          volumeMounts:
+            - name: aivid-mongo-db
+              mountPath: /bitnami/mongodb
+          imagePullPolicy: IfNotPresent
+      serviceAccountName: operations-portal
+      imagePullSecrets:
+        - name: aividtech
+      securityContext:
+        fsGroup: 1001
+      containers:
+        - readinessProbe:
+            exec:
+              command:
+                - bash
+                - '-ec'
+                - ''
+                - >-
+                  mongo --disableImplicitSessions $TLS_OPTIONS --eval
+                  'db.hello().isWritablePrimary || db.hello().secondary' | grep
+                  -q 'true'
+          name: mongodb
+          livenessProbe:
+            exec:
+              command:
+                - mongo
+                - '--disableImplicitSessions'
+                - '--eval'
+                - db.adminCommand('ping')
+          env:
+            - name: BITNAMI_DEBUG
+              value: 'false'
+            - name: MONGODB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: operations-portal-mongodb
+                  key: mongodb-root-password
+            - name: ALLOW_EMPTY_PASSWORD
+              value: 'no'
+            - name: MONGODB_SYSTEM_LOG_VERBOSITY
+              value: '0'
+            - name: MONGODB_DISABLE_SYSTEM_LOG
+              value: 'no'
+            - name: MONGODB_ENABLE_IPV6
+              value: 'no'
+            - name: MONGODB_ENABLE_DIRECTORY_PER_DB
+              value: 'no'
+          securityContext:
+            runAsUser: 1001
+            runAsNonRoot: true
+          ports:
+            - name: mongodb
+              containerPort: {{ .Values.port }}
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          image: 'aividtech/mongodb-4.4.4-debian-10-r0:develop'
+      serviceAccount: operations-portal
+      volumes:
+        - name: aivid-mongo-db
+          persistentVolumeClaim:
+            claimName: aivid-mongo-db
+  serviceName: operations-portal-mongodb

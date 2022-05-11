@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aivid-cloud-mqtt
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: aivid-cloud-mqtt
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: aivid-cloud-mqtt
+  template:
+    metadata:
+      labels:
+        app: aivid-cloud-mqtt
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      containers:
+      - name: {{ .Chart.Name }}
+        env:
+          - name: NO_PROXY
+            value: '*'
+          - name: no_proxy
+            value: '*'
+        securityContext:
+            runAsUser: 1883
+        image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+          - containerPort: {{ .Values.port }}
+            protocol: TCP
+      serviceAccountName: {{ .Values.serviceAccount.name}}
+      serviceAccount: {{ .Values.serviceAccount.name}}

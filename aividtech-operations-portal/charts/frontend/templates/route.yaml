@@ -1,0 +1,14 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: frontend
+  namespace: {{ .Values.global.namespace }}
+spec:
+  to:
+    kind: Service
+    name: operational-portal-frontend-service
+  port:
+    targetPort: 443
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect
