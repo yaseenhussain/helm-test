@@ -70,5 +70,15 @@ entries:
     urls:
     - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/operations-portal.tgz
     version: "1.0.0"
+  test-helm:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-06-13T12:36:49.5051348-04:00"
+    description: A Helm chart for Kubernetes
+    digest: 65d5653a22e7f4846164e5bd5f94495a15907eeb57b714410005469835128ce2
+    name: test-helm
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/test-helm-0.1.0.tgz
+    version: 0.1.0
 generated: "2021-05-26T14:59:11.656550034-04:00"
-
