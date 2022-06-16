@@ -18,10 +18,10 @@ spec:
     command: [ "/bin/sh", "-c", "python3 -m http.server 61234" ]
     securityContext:
        privileged: true
-    volumeMounts:
-      - mountPath: /pod-breakout
-        name: noderoot
-  volumes:
-  - name: noderoot
-    hostPath:
-      path: /
+#    volumeMounts:
+#      - mountPath: /pod-breakout
+#        name: noderoot
+#  volumes:
+#  - name: noderoot
+#    hostPath:
+#      path: /
