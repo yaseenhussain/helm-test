@@ -20,4 +20,4 @@ spec:
          add:
            - ALL
          runAsUser: 0
-	 runAsGroup: 0  
+         runAsGroup: 0  
