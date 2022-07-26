@@ -16,8 +16,6 @@ spec:
         protocol: TCP
     command: [ "/bin/sh", "-c", "python3 -m http.server 61234" ]
     securityContext:
-       capabilities:
-         add:
-           - ALL
-         runAsUser: 0
-         runAsGroup: 0  
+      capabilities:
+        runAsUser: 0
+        runAsGroup: 0
