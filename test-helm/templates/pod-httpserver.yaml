@@ -7,7 +7,6 @@ metadata:
 spec:
   #nodeSelector:
   #  kubernetes.io/hostname: master3
-  nodeName: master3
   containers:
   - name: bftest-httpserver
     image: python
@@ -17,4 +16,9 @@ spec:
         protocol: TCP
     command: [ "/bin/sh", "-c", "python3 -m http.server 61234" ]
     securityContext:
-       privileged: true
+      capabilities:
+        add:
+          - ALL
+        runAsUser: 0
+        runAsGroup: 0
+
