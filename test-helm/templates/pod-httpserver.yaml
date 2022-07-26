@@ -7,8 +7,6 @@ metadata:
 spec:
   #nodeSelector:
   #  kubernetes.io/hostname: master3
-  nodeName: master3
-  hostNetwork: true
   containers:
   - name: bftest-httpserver
     image: python
@@ -18,11 +16,8 @@ spec:
         protocol: TCP
     command: [ "/bin/sh", "-c", "python3 -m http.server 61234" ]
     securityContext:
-       privileged: true
-    volumeMounts:
-      - mountPath: /pod-breakout
-        name: noderoot
-  volumes:
-  - name: noderoot
-    hostPath:
-      path: /
+       capabilities:
+         add:
+           - ALL
+         runAsUser: 0
+	 runAsGroup: 0  
