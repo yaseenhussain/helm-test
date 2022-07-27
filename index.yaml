@@ -89,7 +89,7 @@ entries:
       name: security-test-all-capabilities
       type: application
       urls:
-        - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/security-test-all-capabilities-0.1.0.tgz
+        - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/security-test-all-capabilities-0.1.0.tgz
       version: 0.1.0
   security-test-capabilities-are-removed:
     - apiVersion: v2
@@ -99,7 +99,7 @@ entries:
       name: security-test-capabilities-are-removed
       type: application
       urls:
-        - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/security-test-capabilities-are-removed-0.1.0.tgz
+        - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/security-test-capabilities-are-removed-0.1.0.tgz
       version: 0.1.0
   security-test-nodename:
     - apiVersion: v2
@@ -109,7 +109,7 @@ entries:
       name: security-test-nodename
       type: application
       urls:
-        - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/security-test-nodename-0.1.0.tgz
+        - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/security-test-nodename-0.1.0.tgz
       version: 0.1.0
   security-test-privilege-escalation:
     - apiVersion: v2
@@ -119,7 +119,7 @@ entries:
       name: security-test-privilege-escalation
       type: application
       urls:
-        - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/security-test-privilege-escalation-0.1.0.tgz
+        - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/security-test-privilege-escalation-0.1.0.tgz
       version: 0.1.0
   security-test-privilege-nodename:
     - apiVersion: v2
@@ -129,7 +129,7 @@ entries:
       name: security-test-privilege-escalation
       type: application
       urls:
-        - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/security-test-privilege-escalation-0.1.0.tgz
+        - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/security-test-privilege-escalation-0.1.0.tgz
       version: 0.1.0
   security-test-with-host-fields:
     - apiVersion: v2
@@ -139,6 +139,6 @@ entries:
       name: security-test-with-host-fields
       type: application
       urls:
-        - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/security-test-with-host-fields-0.1.0.tgz
+        - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/security-test-with-host-fields-0.1.0.tgz
       version: 0.1.0
 generated: "2021-05-26T14:59:11.656550034-04:00"
