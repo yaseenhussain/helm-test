@@ -129,7 +129,7 @@ entries:
       name: security-test-privilege-escalation
       type: application
       urls:
-        - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/security-test-privilege-escalation-0.1.0.tgz
+        - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/security-test-privilege-nodename-0.1.0.tgz
       version: 0.1.0
   security-test-with-host-fields:
     - apiVersion: v2
