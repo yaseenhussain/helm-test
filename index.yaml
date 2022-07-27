@@ -81,4 +81,64 @@ entries:
     urls:
     - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/test-helm-0.1.0.tgz
     version: 0.1.0
+  security-test-all-capabilities:
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2022-06-13T12:36:49.5051348-04:00"
+      description: A Helm chart for testing all capabilities
+      name: security-test-all-capabilities
+      type: application
+      urls:
+        - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/security-test-all-capabilities-0.1.0.tgz
+      version: 0.1.0
+  security-test-capabilities-are-removed:
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2022-06-13T12:36:49.5051348-04:00"
+      description: A Helm chart for testing capabilities are removed
+      name: security-test-capabilities-are-removed
+      type: application
+      urls:
+        - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/security-test-capabilities-are-removed-0.1.0.tgz
+      version: 0.1.0
+  security-test-nodename:
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2022-06-13T12:36:49.5051348-04:00"
+      description: A Helm chart for testing with nodename field
+      name: security-test-nodename
+      type: application
+      urls:
+        - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/security-test-nodename-0.1.0.tgz
+      version: 0.1.0
+  security-test-privilege-escalation:
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2022-06-13T12:36:49.5051348-04:00"
+      description: A Helm chart for testing with privilege escalation field
+      name: security-test-privilege-escalation
+      type: application
+      urls:
+        - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/security-test-privilege-escalation-0.1.0.tgz
+      version: 0.1.0
+  security-test-privilege-nodename:
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2022-06-13T12:36:49.5051348-04:00"
+      description: A Helm chart for testing with privilege escalation field
+      name: security-test-privilege-escalation
+      type: application
+      urls:
+        - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/security-test-privilege-escalation-0.1.0.tgz
+      version: 0.1.0
+  security-test-with-host-fields:
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2022-06-13T12:36:49.5051348-04:00"
+      description: A Helm chart for testing with host field
+      name: security-test-with-host-fields
+      type: application
+      urls:
+        - https://raw.githubusercontent.com/VijaySriraman/helm-demo/master/security-test-with-host-fields-0.1.0.tgz
+      version: 0.1.0
 generated: "2021-05-26T14:59:11.656550034-04:00"
