@@ -96,10 +96,10 @@ entries:
       appVersion: 1.16.0
       created: "2022-06-13T12:36:49.5051348-04:00"
       description: A Helm chart for testing capabilities are removed
-      name: security-test-capabilities-are-removed
+      name: security-test-capabilities
       type: application
       urls:
-        - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/security-test-capabilities-are-removed-0.1.0.tgz
+        - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/security-test-capabilities-0.1.0.tgz
       version: 0.1.0
   security-test-nodename:
     - apiVersion: v2
