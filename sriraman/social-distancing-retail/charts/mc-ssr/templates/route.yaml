@@ -1,0 +1,14 @@
+---
+# Source: social-distancing-retail/charts/mc-ssr/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: mc-ssr
+  namespace: devcloudexample
+spec:
+  path: "/get_all_streams"
+  to:
+    kind: Service
+    name: release-name-mc-ssr
+  port:
+    targetPort: 8000

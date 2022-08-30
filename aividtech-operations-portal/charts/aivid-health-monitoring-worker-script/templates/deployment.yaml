@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aivid-node-office1-health-monitor-script
+  namespace: default
+  labels:
+    app: aivid-node-office1-health-monitor-script
+    app.kubernetes.io/name: aivid-health-monitoring-worker-script
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: aivid-node-office1-health-monitor-script
+  template:
+    metadata:
+      labels:
+        app: aivid-node-office1-health-monitor-script
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      dnsConfig:
+        nameservers:
+          - 10.96.0.10
+      dnsPolicy: None
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: NODEJS_BACKEND_URL
+              value: >-
+                https://operational-portal-backend-service.operations-portal.svc.cluster.local:8000
+            - name: ES_IP_ADDRESS
+              value: >-
+                http://aivid-node-office1-db-service-metricbeat.default.svc.cluster.local:9200
+            - name: NODE_NAME
+              value: AIVIDNODELOCAL
+            - name: SITE_NAME
+              value: AIVIDSITELOCAL
+            - name: ES_INDEX
+              value: onvif_sensor_summary
+            - name: NTP_URL
+              value: time.windows.com
+            - name: JENKIN_URL
+              value: http://admin:admin@NODE_IP:8080
+            - name: REDIS_HOST
+              value: operations-portal-redis.operations-portal.svc.cluster.local
+            - name: REDIS_PORT
+              value: '6379'
+            - name: REDIS_PASSWORD
+              value: ''

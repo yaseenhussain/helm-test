@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: insight-sharing-receiver
+  namespace: {{ .Values.global.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: insight-sharing-receiver
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: insight-sharing-receiver
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: NODEJS_BACKEND_URL
+              value: >-
+                https://operational-portal-backend-service.operations-portal.svc.cluster.local:8000
+            - name: REDIS_HOST
+              value: operations-portal-redis.operations-portal.svc.cluster.local
+            - name: REDIS_PORT
+              value: '6379'
+            - name: REDIS_PASSWORD
+              value: ''
+            - name: REDIS_PORT
+              value: '6379'
+            - name: REDIS_PASSWORD
+              value: ''
+            - name: KEYWORD
+              value: /
+            - name: PORTAL_URL
+              value: https://CLOUD_IP:32300
+            - name: SLACK_TOKEN
+              value: xoxb-3057294155379-3059598648116-Sl7mdLLv7OBaYrmCNhFQng5W
+            - name: SLACK_CHANNEL
+              value: C031RH7KGNQ

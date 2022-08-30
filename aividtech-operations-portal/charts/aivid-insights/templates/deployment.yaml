@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aivid-insights
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: aivid-insights
+    app.kubernetes.io/name: aivid-insights
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: aivid-insights
+  template:
+    metadata:
+      labels:
+        app: aivid-insights
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            limits:
+              cpu: 1000m
+            requests:
+              cpu: 100m
+          env:
+            - name: CLUSTER_NAME
+              value: escluster
+            - name: XPACK_SECURITY_ENABLED
+              value: 'true'
+            - name: XPACK_GRAPH_ENABLED
+              value: 'true'
+            - name: XPACK_ML_ENABLED
+              value: 'true'
+            - name: XPACK_REPORTING_ENABLED
+              value: 'true'
+            - name: KIBANA_INDEX
+              value: .kibana710
+            - name: ELASTICSEARCH_HOSTS
+              value: http://aivid-cloud-db-service.default.svc.cluster.local:9200
+          volumeMounts:
+            - name: config
+              mountPath: /usr/share/kibana/config
+            - mountPath: /config
+              name: aivid-operations-certificate
+              readOnly: true
+          ports:
+            - containerPort: 5601
+      volumes:
+        - name: config
+          configMap:
+            name: kibana-config
+        - name: aivid-operations-certificate
+          secret:
+            secretName: aivid-operations-certificate

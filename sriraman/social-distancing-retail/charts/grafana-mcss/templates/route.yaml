@@ -1,0 +1,13 @@
+---
+# Source: social-distancing-retail/charts/grafana-mcss/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: grafana-mcss
+  namespace: devcloudexample
+spec:
+  to:
+    kind: Service
+    name: grafana-mcss
+  port:
+    targetPort: 3000

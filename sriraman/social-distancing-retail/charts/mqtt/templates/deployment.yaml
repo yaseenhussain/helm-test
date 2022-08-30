@@ -1,0 +1,31 @@
+---
+# Source: social-distancing-retail/charts/mqtt/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: release-name-mqtt
+  labels:
+    helm.sh/chart: mqtt-0.1.0
+    app.kubernetes.io/name: mqtt
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  namespace: devcloudexample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mqtt
+      app.kubernetes.io/instance: release-name
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mqtt
+        app.kubernetes.io/instance: release-name
+    spec:
+      serviceAccountName: 
+      serviceAccount: 
+      containers:
+        - name: mqtt
+          image: "eclipse-mosquitto:1.5.8"
+          imagePullPolicy: IfNotPresent

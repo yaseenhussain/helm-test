@@ -1,0 +1,17 @@
+---
+# Source: social-distancing-retail/charts/mc-ssr/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mc-ssr-config
+  namespace: devcloudexample
+data:
+  camera_config.json: "{\r\n    \"cameras\":[\r\n        {\r\n            \"analytics\":
+    \"socail distancing\",\r\n            \"device\": \"CPU\",\r\n            \"path\":
+    \"./resources/Pexels_Videos_2670.mp4\"\r\n        },\r\n        {\r\n            \"analytics\":
+    \"socail distancing\",\r\n            \"device\": \"CPU\",\r\n            \"path\":
+    \"./resources/Pexels_Videos_2670.mp4\"\r\n        },\r\n        {\r\n            \"analytics\":
+    \"pedestrian vehicle bike detection\",\r\n            \"device\": \"CPU\",\r\n            \"path\":
+    \"./resources/Pexels_Videos_2670.mp4\"\r\n        },\r\n        {\r\n            \"analytics\":
+    \"pedestrian vehicle detection\",\r\n            \"device\": \"CPU\",\r\n            \"path\":
+    \"./resources/Pexels_Videos_2670.mp4\"\r\n        }\r\n    ]\r\n\r\n}\r\n"

@@ -1,0 +1,618 @@
+---
+# Source: social-distancing-retail/charts/grafana-mcss/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-config
+  namespace: devcloudexample
+data:
+  datasources.yaml: "# config file version\r\napiVersion: 1\r\n\r\n# # list of datasources
+    to insert/update depending\r\n# # what's available in the database\r\ndatasources:\r\n-
+    name: Mcss Covid\r\n  type: influxdb\r\n  access: proxy\r\n  orgID: 2\r\n  basicAuth:
+    false\r\n  url: http://influxdb:8086\r\n  database: McssCovid\r\n  editable: false\r\n
+    \ version: 1\r\n"
+  grafana-dashboard-provider.yaml: "apiVersion: 1\r\n\r\nproviders:\r\n- name: 'default'\r\n
+    \ orgId: 1\r\n  folder: ''\r\n  type: file\r\n  disableDeletion: false\r\n  updateIntervalSeconds:
+    5 #how often Grafana will scan for changed dashboards\r\n  options:\r\n    path:
+    /var/lib/grafana/dashboards\r\n"
+  grafana_dashboard.json: "{\r\n  \"annotations\": {\r\n    \"list\": [\r\n      {\r\n
+    \       \"builtIn\": 1,\r\n        \"datasource\": \"-- Grafana --\",\r\n        \"enable\":
+    true,\r\n        \"hide\": true,\r\n        \"iconColor\": \"rgba(0, 211, 255, 1)\",\r\n
+    \       \"name\": \"Annotations & Alerts\",\r\n        \"type\": \"dashboard\"\r\n
+    \     }\r\n    ]\r\n  },\r\n  \"editable\": true,\r\n  \"gnetId\": null,\r\n  \"graphTooltip\":
+    0,\r\n  \"id\": 2,\r\n  \"links\": [],\r\n  \"panels\": [\r\n    {\r\n      \"cacheTimeout\":
+    null,\r\n      \"datasource\": \"Mcss Covid\",\r\n      \"gridPos\": {\r\n        \"h\":
+    6,\r\n        \"w\": 3,\r\n        \"x\": 0,\r\n        \"y\": 0\r\n      },\r\n
+    \     \"id\": 6,\r\n      \"links\": [],\r\n      \"options\": {\r\n        \"fieldOptions\":
+    {\r\n          \"calcs\": [\r\n            \"last\"\r\n          ],\r\n          \"defaults\":
+    {\r\n            \"mappings\": [],\r\n            \"max\": 100,\r\n            \"min\":
+    0,\r\n            \"thresholds\": [\r\n              {\r\n                \"color\":
+    \"green\",\r\n                \"value\": null\r\n              },\r\n              {\r\n
+    \               \"color\": \"green\",\r\n                \"value\": 80\r\n              }\r\n
+    \           ]\r\n          },\r\n          \"override\": {},\r\n          \"values\":
+    false\r\n        },\r\n        \"orientation\": \"auto\",\r\n        \"showThresholdLabels\":
+    false,\r\n        \"showThresholdMarkers\": false\r\n      },\r\n      \"pluginVersion\":
+    \"6.3.2\",\r\n      \"targets\": [\r\n        {\r\n          \"alias\": \"Current
+    People Count\",\r\n          \"groupBy\": [],\r\n          \"measurement\": \"people_count\",\r\n
+    \         \"orderByTime\": \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\":
+    \"A\",\r\n          \"resultFormat\": \"time_series\",\r\n          \"select\":
+    [\r\n            [\r\n              {\r\n                \"params\": [\r\n                  \"Total\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              },\r\n
+    \             {\r\n                \"params\": [],\r\n                \"type\":
+    \"last\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        }\r\n      ],\r\n      \"timeFrom\": null,\r\n      \"timeShift\":
+    null,\r\n      \"title\": \"Current People Count\",\r\n      \"transparent\": true,\r\n
+    \     \"type\": \"gauge\"\r\n    },\r\n    {\r\n      \"aliasColors\": {},\r\n      \"bars\":
+    false,\r\n      \"dashLength\": 10,\r\n      \"dashes\": false,\r\n      \"datasource\":
+    \"Mcss Covid\",\r\n      \"decimals\": null,\r\n      \"fill\": 1,\r\n      \"fillGradient\":
+    0,\r\n      \"gridPos\": {\r\n        \"h\": 11,\r\n        \"w\": 11,\r\n        \"x\":
+    3,\r\n        \"y\": 0\r\n      },\r\n      \"id\": 11,\r\n      \"legend\": {\r\n
+    \       \"avg\": false,\r\n        \"current\": false,\r\n        \"max\": false,\r\n
+    \       \"min\": false,\r\n        \"show\": true,\r\n        \"total\": false,\r\n
+    \       \"values\": false\r\n      },\r\n      \"lines\": true,\r\n      \"linewidth\":
+    1,\r\n      \"nullPointMode\": \"null\",\r\n      \"options\": {\r\n        \"dataLinks\":
+    []\r\n      },\r\n      \"percentage\": false,\r\n      \"pointradius\": 2,\r\n
+    \     \"points\": false,\r\n      \"renderer\": \"flot\",\r\n      \"seriesOverrides\":
+    [],\r\n      \"spaceLength\": 10,\r\n      \"stack\": false,\r\n      \"steppedLine\":
+    false,\r\n      \"targets\": [\r\n        {\r\n          \"alias\": \"Total Social
+    Violations\",\r\n          \"groupBy\": [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n
+    \         \"orderByTime\": \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\":
+    \"A\",\r\n          \"resultFormat\": \"time_series\",\r\n          \"select\":
+    [\r\n            [\r\n              {\r\n                \"params\": [\r\n                  \"Total\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 1\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"B\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"0\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 2\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"C\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"1\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 3\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"D\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"2\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 4\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"E\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"3\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 5\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"F\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"4\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 6\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"G\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"5\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 7\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"H\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"6\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 8\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"I\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"7\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 9\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"K\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"8\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 10\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"L\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"9\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 11\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"M\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"10\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 12\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"N\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"11\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 13\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"O\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"12\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 14\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"P\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"13\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 15\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"Q\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"14\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 16\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"R\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"15\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        }\r\n      ],\r\n
+    \     \"thresholds\": [],\r\n      \"timeFrom\": null,\r\n      \"timeRegions\":
+    [],\r\n      \"timeShift\": null,\r\n      \"title\": \"Social Violations\",\r\n
+    \     \"tooltip\": {\r\n        \"shared\": true,\r\n        \"sort\": 0,\r\n        \"value_type\":
+    \"individual\"\r\n      },\r\n      \"transparent\": true,\r\n      \"type\": \"graph\",\r\n
+    \     \"xaxis\": {\r\n        \"buckets\": null,\r\n        \"mode\": \"time\",\r\n
+    \       \"name\": null,\r\n        \"show\": true,\r\n        \"values\": []\r\n
+    \     },\r\n      \"yaxes\": [\r\n        {\r\n          \"format\": \"short\",\r\n
+    \         \"label\": null,\r\n          \"logBase\": 1,\r\n          \"max\": null,\r\n
+    \         \"min\": null,\r\n          \"show\": true\r\n        },\r\n        {\r\n
+    \         \"format\": \"short\",\r\n          \"label\": null,\r\n          \"logBase\":
+    1,\r\n          \"max\": null,\r\n          \"min\": null,\r\n          \"show\":
+    true\r\n        }\r\n      ],\r\n      \"yaxis\": {\r\n        \"align\": false,\r\n
+    \       \"alignLevel\": null\r\n      }\r\n    },\r\n    {\r\n      \"columns\":
+    [],\r\n      \"datasource\": \"Mcss Covid\",\r\n      \"fontSize\": \"100%\",\r\n
+    \     \"gridPos\": {\r\n        \"h\": 11,\r\n        \"w\": 10,\r\n        \"x\":
+    14,\r\n        \"y\": 0\r\n      },\r\n      \"id\": 12,\r\n      \"options\": {},\r\n
+    \     \"pageSize\": null,\r\n      \"scroll\": false,\r\n      \"showHeader\": true,\r\n
+    \     \"sort\": {\r\n        \"col\": 0,\r\n        \"desc\": true\r\n      },\r\n
+    \     \"styles\": [\r\n        {\r\n          \"alias\": \"Time\",\r\n          \"dateFormat\":
+    \"YYYY-MM-DD HH:mm:ss\",\r\n          \"pattern\": \"Time\",\r\n          \"type\":
+    \"date\"\r\n        },\r\n        {\r\n          \"alias\": \"\",\r\n          \"colorMode\":
+    null,\r\n          \"colors\": [\r\n            \"rgba(245, 54, 54, 0.9)\",\r\n
+    \           \"rgba(237, 129, 40, 0.89)\",\r\n            \"rgba(50, 172, 45, 0.97)\"\r\n
+    \         ],\r\n          \"decimals\": 2,\r\n          \"pattern\": \"/.*/\",\r\n
+    \         \"thresholds\": [],\r\n          \"type\": \"number\",\r\n          \"unit\":
+    \"short\"\r\n        }\r\n      ],\r\n      \"targets\": [\r\n        {\r\n          \"alias\":
+    \"Total Social Violations\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"A\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"Total\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 1\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"B\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"0\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 2\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"C\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"1\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 3\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"D\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"2\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 4\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"E\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"3\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 5\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"F\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"4\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 6\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"G\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"5\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 7\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"H\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"6\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 8\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"M\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"7\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 9\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"I\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"8\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 10\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"J\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"9\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 11\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"K\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"10\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 12\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"L\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"11\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 13\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"N\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"12\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 14\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"O\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"13\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 15\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"P\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"14\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 16\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"social_distancing_violations\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"Q\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"15\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        }\r\n      ],\r\n      \"timeFrom\": null,\r\n      \"timeShift\":
+    null,\r\n      \"title\": \"Social Violations Table\",\r\n      \"transform\": \"timeseries_to_columns\",\r\n
+    \     \"transparent\": true,\r\n      \"type\": \"table\"\r\n    },\r\n    {\r\n
+    \     \"cacheTimeout\": null,\r\n      \"datasource\": \"Mcss Covid\",\r\n      \"gridPos\":
+    {\r\n        \"h\": 6,\r\n        \"w\": 3,\r\n        \"x\": 0,\r\n        \"y\":
+    6\r\n      },\r\n      \"id\": 8,\r\n      \"links\": [],\r\n      \"options\":
+    {\r\n        \"fieldOptions\": {\r\n          \"calcs\": [\r\n            \"last\"\r\n
+    \         ],\r\n          \"defaults\": {\r\n            \"mappings\": [],\r\n            \"max\":
+    100,\r\n            \"min\": 0,\r\n            \"thresholds\": [\r\n              {\r\n
+    \               \"color\": \"green\",\r\n                \"value\": null\r\n              },\r\n
+    \             {\r\n                \"color\": \"green\",\r\n                \"value\":
+    80\r\n              }\r\n            ]\r\n          },\r\n          \"override\":
+    {},\r\n          \"values\": false\r\n        },\r\n        \"orientation\": \"auto\",\r\n
+    \       \"showThresholdLabels\": false,\r\n        \"showThresholdMarkers\": false\r\n
+    \     },\r\n      \"pluginVersion\": \"6.3.2\",\r\n      \"targets\": [\r\n        {\r\n
+    \         \"alias\": \"Current Social Dist. Violations\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"social_distancing_violations\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"A\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"Total\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              },\r\n
+    \             {\r\n                \"params\": [],\r\n                \"type\":
+    \"last\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        }\r\n      ],\r\n      \"timeFrom\": null,\r\n      \"timeShift\":
+    null,\r\n      \"title\": \"Current Social Dist. Violations\",\r\n      \"transparent\":
+    true,\r\n      \"type\": \"gauge\"\r\n    },\r\n    {\r\n      \"aliasColors\":
+    {},\r\n      \"bars\": false,\r\n      \"dashLength\": 10,\r\n      \"dashes\":
+    false,\r\n      \"datasource\": \"Mcss Covid\",\r\n      \"decimals\": null,\r\n
+    \     \"fill\": 1,\r\n      \"fillGradient\": 0,\r\n      \"gridPos\": {\r\n        \"h\":
+    11,\r\n        \"w\": 11,\r\n        \"x\": 3,\r\n        \"y\": 11\r\n      },\r\n
+    \     \"id\": 13,\r\n      \"legend\": {\r\n        \"avg\": false,\r\n        \"current\":
+    false,\r\n        \"max\": false,\r\n        \"min\": false,\r\n        \"show\":
+    true,\r\n        \"total\": false,\r\n        \"values\": false\r\n      },\r\n
+    \     \"lines\": true,\r\n      \"linewidth\": 1,\r\n      \"nullPointMode\": \"null\",\r\n
+    \     \"options\": {\r\n        \"dataLinks\": []\r\n      },\r\n      \"percentage\":
+    false,\r\n      \"pointradius\": 2,\r\n      \"points\": false,\r\n      \"renderer\":
+    \"flot\",\r\n      \"seriesOverrides\": [],\r\n      \"spaceLength\": 10,\r\n      \"stack\":
+    false,\r\n      \"steppedLine\": false,\r\n      \"targets\": [\r\n        {\r\n
+    \         \"alias\": \"Total Mask Violations\",\r\n          \"groupBy\": [],\r\n
+    \         \"measurement\": \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n
+    \         \"policy\": \"default\",\r\n          \"refId\": \"A\",\r\n          \"resultFormat\":
+    \"time_series\",\r\n          \"select\": [\r\n            [\r\n              {\r\n
+    \               \"params\": [\r\n                  \"Total\"\r\n                ],\r\n
+    \               \"type\": \"field\"\r\n              }\r\n            ]\r\n          ],\r\n
+    \         \"tags\": []\r\n        },\r\n        {\r\n          \"alias\": \"Channel
+    1\",\r\n          \"groupBy\": [],\r\n          \"measurement\": \"mask_violation\",\r\n
+    \         \"orderByTime\": \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\":
+    \"B\",\r\n          \"resultFormat\": \"time_series\",\r\n          \"select\":
+    [\r\n            [\r\n              {\r\n                \"params\": [\r\n                  \"0\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 2\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"C\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"1\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 3\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"D\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"2\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 4\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"E\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"3\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 5\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"F\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"4\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 6\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"G\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"5\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 7\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"H\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"6\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 8\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"I\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"7\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 9\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"J\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"8\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 10\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"K\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"9\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 11\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"L\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"10\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 12\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"M\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"11\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 13\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"N\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"12\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 14\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"O\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"13\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 15\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"P\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"14\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 16\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"Q\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"15\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        }\r\n      ],\r\n      \"thresholds\": [],\r\n      \"timeFrom\":
+    null,\r\n      \"timeRegions\": [],\r\n      \"timeShift\": null,\r\n      \"title\":
+    \"Mask Violations\",\r\n      \"tooltip\": {\r\n        \"shared\": true,\r\n        \"sort\":
+    0,\r\n        \"value_type\": \"individual\"\r\n      },\r\n      \"transparent\":
+    true,\r\n      \"type\": \"graph\",\r\n      \"xaxis\": {\r\n        \"buckets\":
+    null,\r\n        \"mode\": \"time\",\r\n        \"name\": null,\r\n        \"show\":
+    true,\r\n        \"values\": []\r\n      },\r\n      \"yaxes\": [\r\n        {\r\n
+    \         \"format\": \"short\",\r\n          \"label\": null,\r\n          \"logBase\":
+    1,\r\n          \"max\": null,\r\n          \"min\": null,\r\n          \"show\":
+    true\r\n        },\r\n        {\r\n          \"format\": \"short\",\r\n          \"label\":
+    null,\r\n          \"logBase\": 1,\r\n          \"max\": null,\r\n          \"min\":
+    null,\r\n          \"show\": true\r\n        }\r\n      ],\r\n      \"yaxis\": {\r\n
+    \       \"align\": false,\r\n        \"alignLevel\": null\r\n      }\r\n    },\r\n
+    \   {\r\n      \"columns\": [],\r\n      \"datasource\": \"Mcss Covid\",\r\n      \"fontSize\":
+    \"100%\",\r\n      \"gridPos\": {\r\n        \"h\": 11,\r\n        \"w\": 10,\r\n
+    \       \"x\": 14,\r\n        \"y\": 11\r\n      },\r\n      \"id\": 2,\r\n      \"options\":
+    {},\r\n      \"pageSize\": null,\r\n      \"scroll\": false,\r\n      \"showHeader\":
+    true,\r\n      \"sort\": {\r\n        \"col\": 0,\r\n        \"desc\": true\r\n
+    \     },\r\n      \"styles\": [\r\n        {\r\n          \"alias\": \"Time\",\r\n
+    \         \"dateFormat\": \"YYYY-MM-DD HH:mm:ss\",\r\n          \"pattern\": \"Time\",\r\n
+    \         \"type\": \"date\"\r\n        },\r\n        {\r\n          \"alias\":
+    \"\",\r\n          \"colorMode\": null,\r\n          \"colors\": [\r\n            \"rgba(245,
+    54, 54, 0.9)\",\r\n            \"rgba(237, 129, 40, 0.89)\",\r\n            \"rgba(50,
+    172, 45, 0.97)\"\r\n          ],\r\n          \"decimals\": 2,\r\n          \"pattern\":
+    \"/.*/\",\r\n          \"thresholds\": [],\r\n          \"type\": \"number\",\r\n
+    \         \"unit\": \"short\"\r\n        }\r\n      ],\r\n      \"targets\": [\r\n
+    \       {\r\n          \"alias\": \"Total Mask Violations\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"A\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"Total\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 1\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"B\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"0\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 2\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"C\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"1\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 3\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"D\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"2\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 4\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"E\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"3\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 5\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"F\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"4\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 6\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"G\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"5\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 7\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"H\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"6\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 8\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"I\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"7\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 9\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"J\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"8\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 10\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"K\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"9\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 11\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"L\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"10\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 12\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"M\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"11\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 13\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"N\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"12\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 14\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"O\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"13\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        },\r\n        {\r\n
+    \         \"alias\": \"Channel 15\",\r\n          \"groupBy\": [],\r\n          \"measurement\":
+    \"mask_violation\",\r\n          \"orderByTime\": \"ASC\",\r\n          \"policy\":
+    \"default\",\r\n          \"refId\": \"P\",\r\n          \"resultFormat\": \"time_series\",\r\n
+    \         \"select\": [\r\n            [\r\n              {\r\n                \"params\":
+    [\r\n                  \"14\"\r\n                ],\r\n                \"type\":
+    \"field\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        },\r\n        {\r\n          \"alias\": \"Channel 16\",\r\n          \"groupBy\":
+    [],\r\n          \"measurement\": \"mask_violation\",\r\n          \"orderByTime\":
+    \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\": \"Q\",\r\n
+    \         \"resultFormat\": \"time_series\",\r\n          \"select\": [\r\n            [\r\n
+    \             {\r\n                \"params\": [\r\n                  \"15\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              }\r\n
+    \           ]\r\n          ],\r\n          \"tags\": []\r\n        }\r\n      ],\r\n
+    \     \"timeFrom\": null,\r\n      \"timeShift\": null,\r\n      \"title\": \"Mask
+    Violations Table\",\r\n      \"transform\": \"timeseries_to_columns\",\r\n      \"transparent\":
+    true,\r\n      \"type\": \"table\"\r\n    },\r\n    {\r\n      \"cacheTimeout\":
+    null,\r\n      \"datasource\": \"Mcss Covid\",\r\n      \"gridPos\": {\r\n        \"h\":
+    6,\r\n        \"w\": 3,\r\n        \"x\": 0,\r\n        \"y\": 12\r\n      },\r\n
+    \     \"id\": 7,\r\n      \"links\": [],\r\n      \"options\": {\r\n        \"fieldOptions\":
+    {\r\n          \"calcs\": [\r\n            \"last\"\r\n          ],\r\n          \"defaults\":
+    {\r\n            \"mappings\": [],\r\n            \"max\": 100,\r\n            \"min\":
+    0,\r\n            \"thresholds\": [\r\n              {\r\n                \"color\":
+    \"green\",\r\n                \"value\": null\r\n              },\r\n              {\r\n
+    \               \"color\": \"green\",\r\n                \"value\": 80\r\n              }\r\n
+    \           ]\r\n          },\r\n          \"override\": {},\r\n          \"values\":
+    false\r\n        },\r\n        \"orientation\": \"auto\",\r\n        \"showThresholdLabels\":
+    false,\r\n        \"showThresholdMarkers\": false\r\n      },\r\n      \"pluginVersion\":
+    \"6.3.2\",\r\n      \"targets\": [\r\n        {\r\n          \"alias\": \"Current
+    Mask Violations\",\r\n          \"groupBy\": [],\r\n          \"measurement\": \"mask_violation\",\r\n
+    \         \"orderByTime\": \"ASC\",\r\n          \"policy\": \"default\",\r\n          \"refId\":
+    \"A\",\r\n          \"resultFormat\": \"time_series\",\r\n          \"select\":
+    [\r\n            [\r\n              {\r\n                \"params\": [\r\n                  \"Total\"\r\n
+    \               ],\r\n                \"type\": \"field\"\r\n              },\r\n
+    \             {\r\n                \"params\": [],\r\n                \"type\":
+    \"last\"\r\n              }\r\n            ]\r\n          ],\r\n          \"tags\":
+    []\r\n        }\r\n      ],\r\n      \"timeFrom\": null,\r\n      \"timeShift\":
+    null,\r\n      \"title\": \"Current Mask Violations\",\r\n      \"transparent\":
+    true,\r\n      \"type\": \"gauge\"\r\n    }\r\n  ],\r\n  \"refresh\": \"3s\",\r\n
+    \ \"schemaVersion\": 19,\r\n  \"style\": \"dark\",\r\n  \"tags\": [],\r\n  \"templating\":
+    {\r\n    \"list\": []\r\n  },\r\n  \"time\": {\r\n    \"from\": \"now-5m\",\r\n
+    \   \"to\": \"now\"\r\n  },\r\n  \"timepicker\": {\r\n    \"refresh_intervals\":
+    [\r\n      \"3s\"\r\n    ]\r\n  },\r\n  \"timezone\": \"\",\r\n  \"title\": \"Multi
+    Camera Covid-19 Solution\",\r\n  \"uid\": \"Ozh13oZMz\",\r\n  \"version\": 2\r\n}"

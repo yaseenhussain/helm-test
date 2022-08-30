@@ -1,0 +1,14 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: aivid-cloud-elasticsearch-health-monitor-db
+  namespace: default
+spec:
+  to:
+    kind: Service
+    name: aivid-cloud-db-service-metricbeat
+  port:
+    targetPort: 32571
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect
