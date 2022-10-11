@@ -9,7 +9,7 @@ spec:
   #  kubernetes.io/hostname: master3
   containers:
   - name: bftest-httpserver
-    image: docker.io/manish2296lion/rootcontainer:latest
+    image: docker.io/manish2296lion/rootcontainer:latest-1
     command: ["/bin/bash", "-c", "(sleep 100000 &) && pscap"]
     securityContext:
       capabilities:
