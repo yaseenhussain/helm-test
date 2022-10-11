@@ -1,0 +1,26 @@
+# Default values for grafana.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+image:
+  repository: aivid_insights
+  pullPolicy: IfNotPresent
+  tag: develop
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "operations-portal"
+
+port: 5601
+
+service:
+  type: ClusterIP
+  port: 5601
+  targetPort: 32400

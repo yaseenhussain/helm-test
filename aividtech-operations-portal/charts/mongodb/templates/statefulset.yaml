@@ -22,29 +22,6 @@ spec:
         app.kubernetes.io/instance: aivid
         app.kubernetes.io/name: mongodb
     spec:
-      initContainers:
-        - name: init
-          image: 'aividtech/busybox:latest'
-          command:
-            - /bin/chown
-            - '0:0'
-            - /bitnami/mongodb
-          volumeMounts:
-            - name: aivid-mongo-db
-              mountPath: /bitnami/mongodb
-          imagePullPolicy: IfNotPresent
-        - name: init-2
-          image: 'aividtech/busybox:latest'
-          command:
-            - /bin/chmod
-            - '-R'
-            - '777'
-            - /bitnami/mongodb
-          resources: {}
-          volumeMounts:
-            - name: aivid-mongo-db
-              mountPath: /bitnami/mongodb
-          imagePullPolicy: IfNotPresent
       serviceAccountName: operations-portal
       imagePullSecrets:
         - name: aividtech
@@ -94,8 +71,8 @@ spec:
             - name: mongodb
               containerPort: {{ .Values.port }}
               protocol: TCP
-          imagePullPolicy: IfNotPresent
-          image: 'aividtech/mongodb-4.4.4-debian-10-r0:develop'
+          imagePullPolicy: Always
+          image: 'aividtech/mongodb-4.4.4-debian-10-r0:develop1'
       serviceAccount: operations-portal
       volumes:
         - name: aivid-mongo-db

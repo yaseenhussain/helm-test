@@ -1,0 +1,21 @@
+---
+# Source: social-distancing-retail/charts/influxdb/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb
+  namespace: devcloudexample
+  labels:
+    app.kubernetes.io/name: influxdb
+    app.kubernetes.io/instance: influxdb-abcxzy
+    app.kubernetes.io/version: 1.0.0
+    app.kubernetes.io/component: database
+    app.kubernetes.io/managed-by: helm
+spec:
+  type: NodePort
+  ports:
+    - port: 8086
+      targetPort: 8086
+  selector:
+    app.kubernetes.io/name: influxdb
+    app.kubernetes.io/instance: influxdb-abcxzy

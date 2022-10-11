@@ -1,0 +1,14 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: aivid-insights-service-exposed
+  namespace: {{ .Values.global.namespace }}
+spec:
+  to:
+    kind: Service
+    name: aivid-insights
+  port:
+    targetPort: 32400
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect

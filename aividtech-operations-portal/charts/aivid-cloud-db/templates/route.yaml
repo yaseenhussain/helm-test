@@ -1,0 +1,14 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: aivid-cloud-db
+  namespace: default
+spec:
+  to:
+    kind: Service
+    name: aivid-cloud-db-service
+  port:
+    targetPort: 32568
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect

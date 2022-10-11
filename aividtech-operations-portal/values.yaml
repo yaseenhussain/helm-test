@@ -2,5 +2,5 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 global:
-  namespace: vijaysriraman9-intel
+  namespace: operations-portal
   imagePullSecrets: aividtech

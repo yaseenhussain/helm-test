@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aivid-node-office1-gateway
+  labels:
+    app: aivid-node-office1-gateway
+    app.kubernetes.io/name: gateway-node
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: aivid-node-office1-gateway
+  template:
+    metadata:
+      labels:
+        app: aivid-node-office1-gateway
+    spec:
+      enableServiceLinks: false
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.port }}
+          env:
+            - name: OFFICE
+              value: 11.11,-22.22
+            - name: DBHOST
+              value: http://aivid-node-office1-db-service:9200
+            - name: STHOST
+              value: http://aivid-node-office1-storage-service:8080
+            - name: WEBRTCHOST
+              value: http://aivid-node-office1-webrtc-service:8888
+            - name: NO_PROXY
+              value: '*'
+            - name: no_proxy
+              value: '*'
