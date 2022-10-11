@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aivid-node-office1-db-service-metricbeat
+  labels:
+    app: aivid-node-office1-db-metricbeat
+spec:
+  clusterIP: None
+  ports:
+    - port: 9200
+      protocol: TCP
+  selector:
+    app: aivid-node-office1-db-metricbeat

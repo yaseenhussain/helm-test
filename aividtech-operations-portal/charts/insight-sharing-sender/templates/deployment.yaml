@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: insight-sharing-sender
+  namespace: {{ .Values.global.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: insight-sharing-sender
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: insight-sharing-sender
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: NODEJS_BACKEND_URL
+              value: >-
+                https://operational-portal-backend-service.{{ .Values.global.namespace }}.svc.cluster.local:8000
+            - name: REDIS_HOST
+              value: operations-portal-redis.{{ .Values.global.namespace }}.svc.cluster.local
+            - name: REDIS_PORT
+              value: '6379'
+            - name: REDIS_PASSWORD
+              value: ''
+            - name: REDIS_PORT
+              value: '6379'
+            - name: REDIS_PASSWORD
+              value: ''
+            - name: KEYWORD
+              value: /
+            - name: PORTAL_URL
+              value: https://CLOUD_IP:32300
+            - name: SLACK_TOKEN
+              value: xoxb-1241914668946-3125543258690-6xoUGG8ig0fUhHeO4qpQVBmj
+            - name: SLACK_CHANNEL
+              value: C02G68AS691
+            - name: MONGO_USERNAME
+              value: root
+            - name: MONGO_PASSWORD
+              value: aivid123vision
+            - name: MONGO_HOST
+              value: operations-portal-mongodb.{{ .Values.global.namespace }}.svc.cluster.local
+            - name: MONGO_DB
+              value: operational-portal
+            - name: MONGO_PORT
+              value: '27017'

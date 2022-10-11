@@ -1,0 +1,47 @@
+---
+# Source: social-distancing-retail/charts/mc-ssr/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: release-name-mc-ssr
+  labels:
+    helm.sh/chart: mc-ssr-0.1.0
+    app.kubernetes.io/name: mc-ssr
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  namespace: devcloudexample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mc-ssr
+      app.kubernetes.io/instance: release-name
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mc-ssr
+        app.kubernetes.io/instance: release-name
+    spec:
+      serviceAccountName: 
+      serviceAccount: 
+      containers:
+      - name: mc-ssr
+        image: "default-route-openshift-image-registry.apps.sandbox.cfa.devcloud.intel.com/devcloud-ri/mcss_covid19_solution:1.0"
+        imagePullPolicy: Always
+        env:
+          - name: LOCAL_HOST
+            value: "0.0.0.0"
+          - name: INFLUXDB_PORT
+            value: "8086"
+          - name: NAMESPACE
+            value: "devcloud-dev2"
+        volumeMounts:
+        - mountPath: /app/camera_config.json
+          name: mc-ssr-config
+          readOnly: true
+          subPath: camera_config.json
+      volumes:
+      - configMap:
+          name: mc-ssr-config
+        name: mc-ssr-config

@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: 1.0.0
+description: A Helm chart for aivid cloud db metricbeat
+name: aivid-cloud-db-metricbeat
+type: application
+version: 0.1.0

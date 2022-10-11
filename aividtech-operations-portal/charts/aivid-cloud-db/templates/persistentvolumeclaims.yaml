@@ -1,0 +1,28 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: aivid-cloud-storage-database
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: aws-efs
+  volumeMode: Filesystem
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: aivid-cloud-snapshot-storage-database
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: aws-efs
+  volumeMode: Filesystem

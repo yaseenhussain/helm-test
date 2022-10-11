@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aivid-cloud-master-node-api
+  namespace: default
+  labels:
+    app: aivid-cloud-master-node-api
+    app.kubernetes.io/name: masternodeapi
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: aivid-cloud-master-node-api
+  template:
+    metadata:
+      labels:
+        app: aivid-cloud-master-node-api
+    spec:
+      imagePullSecrets:
+      - name: {{ .Values.global.imagePullSecrets }}
+      dnsConfig:
+        nameservers:
+        - 10.96.0.10
+      dnsPolicy: None
+      containers:
+         - name: {{ .Chart.Name }}
+           image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+           imagePullPolicy: {{ .Values.image.pullPolicy }}
+           resources:
+             limits:
+                 cpu: "2000m"
+           env:
+            - name: HOSTNAME
+              value: "aivid-cloud-db-service.default.svc.cluster.local"
+            - name: M_HOSTNAME
+              value: "aivid-cloud-db-service.default.svc.cluster.local"
+            - name: DB_PORT
+              value: "9200"
+            - name: M_DB_PORT
+              value: "9200"           
+            - name: API_PORT
+              value: "4004"
+            - name: UPLOAD_LOCATION
+              value: "/video_uploads"
+            - name: MQTT_OFFICE_HOST
+              value: "aivid-cloud-mqtt-service.default.svc.cluster.local"
+            - name: MQTT_OFFICE_PORT
+              value: "1883"
+            - name: MASTER_MQTT_HOST
+              value: 'aivid-cloud-mqtt-service.default.svc.cluster.local'
+            - name: MASTER_MQTT_PORT
+              value: "1883" 
+           volumeMounts:
+             - name: video
+               mountPath: /var/www/mp4
+             - mountPath: /home/fr-tensor
+               name: tensorapi 
+             - mountPath: /var/www/jpg
+               name: image
+      volumes:
+        - name: video
+          persistentVolumeClaim:
+            claimName: aivid-cloud-storage-video
+        - name: tensorapi
+          persistentVolumeClaim:
+            claimName: aivid-cloud-tensor-api  
+        - name: image
+          persistentVolumeClaim:
+            claimName: aivid-cloud-storage-image

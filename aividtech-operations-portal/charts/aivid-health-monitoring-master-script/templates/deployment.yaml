@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aivid-cloud-master-health-monitor-script
+  namespace: default
+  labels:
+    app: aivid-cloud-master-health-monitor-script
+    app.kubernetes.io/name: aivid-health-monitoring-master-script
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: aivid-cloud-master-health-monitor-script
+  template:
+    metadata:
+      labels:
+        app: aivid-cloud-master-health-monitor-script
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      dnsConfig:
+        nameservers:
+          - 10.96.0.10
+      dnsPolicy: None
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: ES_IP_ADDRESS
+              value: >-
+                http://aivid-cloud-db-service-metricbeat.default.svc.cluster.local:9200
+            - name: MASTER_NODE_NAME
+              value: master
+            - name: MASTER_SITE_NAME
+              value: master
+            - name: MASTER_NODE_IP
+              value: CLOUD_IP
+            - name: ES_INDEX
+              value: onvif_sensor_summary
+            - name: NTP_URL
+              value: time.windows.com
+            - name: JENKIN_URL
+              value: http://admin:admin@CLOUD_IP:8080
+            - name: REDIS_HOST
+              value: operations-portal-redis.operations-portal.svc.cluster.local
+            - name: REDIS_PORT
+              value: '6379'
+            - name: REDIS_PASSWORD
+              value: ''
