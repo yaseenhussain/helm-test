@@ -151,4 +151,14 @@ entries:
       urls:
         - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/test-with-service-account-0.1.0.tgz
       version: 0.1.0
+  social-distancing-invalid:
+  - apiVersion: v2
+    appVersion: v1.1.1
+    created: "2021-06-25T10:35:53.913350712Z"
+    description: Use video analytics solutions based on Inted Distribution of OpenVino toolkit models to support retail settings for pandemic scenarios, helping to reduce public health risks.
+    name: social-distancing invalid
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/social-distancing-retail-invalid.tgz
+    version: "1.0.0"
 generated: "2021-05-26T14:59:11.656550034-04:00"
