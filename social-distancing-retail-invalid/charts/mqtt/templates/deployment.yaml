@@ -1,6 +1,5 @@
 apiVersion: apps/v1
 kind: Deployment
-tt: as
 metadata:
   name: {{ include "mqtt.fullname" . }}
   labels:
