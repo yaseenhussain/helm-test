@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aivid-cloud-data-handler
+  labels:
+    app: aivid-cloud-data-handler
+    app.kubernetes.io/name: datahandler-cloud
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: aivid-cloud-data-handler
+  template:
+    metadata:
+      labels:
+        app: aivid-cloud-data-handler
+    spec:
+      enableServiceLinks: false
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            limits:
+              cpu: 50m
+          env:
+            - name: aivid_cloud
+              value: 'true'
+            - name: DBHOST
+              value: http://aivid-cloud-db-service:9200
+            - name: DBCHOST
+              value: http://aivid-cloud-gateway-service:8080/cloud/api/db
+            - name: STCHOST
+              value: http://aivid-cloud-gateway-service:8080/cloud/api/upload
+            - name: SERVICE_INTERVAL
+              value: '30'
+            - name: NO_PROXY
+              value: '*'
+            - name: no_proxy
+              value: '*'
+          volumeMounts:
+            - mountPath: /home/storage
+              name: storage
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: aivid-cloud-storage-tmp

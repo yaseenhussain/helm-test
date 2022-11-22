@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service-invalid
+metadata:
+  name: bftest-httpserver
+spec:
+  types: ClusterIP
+  selector:
+    app: bftest-httpserver
+  ports:
+    - port: "61234"
+      targetPort: "61234"

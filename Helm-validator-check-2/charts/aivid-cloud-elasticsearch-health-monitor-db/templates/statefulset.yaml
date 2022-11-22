@@ -1,0 +1,67 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: aivid-cloud-db-metricbeat
+spec:
+  serviceName: aivid-cloud-db-metricbeat
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aivid-cloud-db-metricbeat
+  template:
+    metadata:
+      labels:
+        app: aivid-cloud-db-metricbeat
+        database: 'yes'
+    spec:
+      imagePullSecrets:
+        - name: aividtech
+      enableServiceLinks: true
+      containers:
+        - name: aivid-cloud-db-metricbeat
+          image: aividtech/elasticsearch-7.10.0:develop
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9200
+            - containerPort: 9300
+          env:
+            - name: discovery.type
+              value: single-node
+            - name: NO_PROXY
+              value: '*'
+            - name: no_proxy
+              value: '*'
+            - name: ES_JAVA_OPTS
+              value: '-Xms2g -Xmx2g'
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/data
+              name: elasticdatametricbeat
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+      initContainers:
+        - name: init-volume-sysctl
+          image: aividtech/busybox:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - '-c'
+            - >-
+              sysctl -w vm.max_map_count=262144 && ulimit -n 65535 && ulimit -u
+              4096
+          securityContext:
+            privileged: true
+        - image: aividtech/busybox:latest
+          imagePullPolicy: IfNotPresent
+          name: init
+          command:
+            - /bin/chown
+            - '0:0'
+            - /usr/share/elasticsearch/data
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/data
+              name: elasticdatametricbeat
+      volumes:
+        - name: elasticdatametricbeat
+          persistentVolumeClaim:
+            claimName: aivid-cloud-metricbeat-storage-database

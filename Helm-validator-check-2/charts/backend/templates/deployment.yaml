@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: operational-portal-backend
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: operational-portal-backend
+    app.kubernetes.io/name: backend
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: operational-portal-backend
+  template:
+    metadata:
+      labels:
+        app: operational-portal-backend
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      containers:
+      - name: {{ .Chart.Name }}
+        env:
+            - name: MONGO_USERNAME
+              value: root
+            - name: MONGO_PASSWORD
+              value: aivid123vision
+            - name: MONGO_HOST
+              value: operations-portal-mongodb.{{ .Values.global.namespace }}.svc.cluster.local
+            - name: MONGO_PORT
+              value: '27017'
+            - name: MONGO_DB
+              value: operational-portal
+            - name: REDIS_HOST
+              value: operations-portal-redis.{{ .Values.global.namespace }}.svc.cluster.local
+            - name: REDIS_PORT
+              value: '6379'
+            - name: JENKINS_URL
+              value: 192.168.1.6
+            - name: DEPLOYMENTTYPE
+              value: '1'
+            - name: AIVID_ENV
+              value: '0'
+            - name: JENKINS_TOKEN
+              value: 1122cef8b572f75a16e357529f06529756
+            - name: TWILIO_ACCOUNT_SID
+              value: AC081f5b2afdc4363880bff0f6fc34eb61
+            - name: TWILIO_AUTH_TOKEN
+              value: 27a6cb9dc9cf78a8fafa3de3c5c649ef
+            - name: MASTER_MQTT_HOST
+              value: aivid-cloud-mqtt-service.{{ .Values.global.namespace }}.svc.cluster.local
+            - name: MASTER_MQTT_PORT
+              value: '1883'
+            - name: TENSOR_API_HOST
+              value: >-
+                aivid-cloud-tensor-api-service.{{ .Values.global.namespace }}.svc.cluster.local
+            - name: TENSOR_API_PORT
+              value: '5000'
+        image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        volumeMounts:
+          - name: image
+            mountPath: /usr/src/app/public
+        ports:
+          - containerPort: {{ .Values.port }}
+            protocol: TCP
+      serviceAccountName: {{ .Values.serviceAccount.name}}
+      serviceAccount: {{ .Values.serviceAccount.name}}
+      volumes:
+        - name: image
+          emptyDir: {}

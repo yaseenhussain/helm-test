@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: aivid-node-office1-notification
+    app.kubernetes.io/name: notification
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+  name: aivid-node-office1-notification
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: aivid-node-office1-notification
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: aivid-node-office1-notification
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      containers:
+        - image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          name: {{ .Chart.Name }}
+          env:
+            - name: MQTT_HOST
+              value: aivid-node-office1-mqtt-service.default.svc.cluster.local
+            - name: ELASTICSEARCH_HOST
+              value: http://aivid-node-office1-db-service:9200
+            - name: STATIC_URL
+              value: https://192.168.1.6:8011/proxy
+            - name: MQTT_PORT
+              value: '1883'
+            - name: ISSLACK
+              value: 'true'
+            - name: ELASTICSEARCH_APIVERSION
+              value: '6.8'
+            - name: TWILIO_ACCOUNT_SID
+              value: AC081f5b2afdc4363880bff0f6fc34eb61
+            - name: ELASTICSEARCH_LOG
+              value: trace
+            - name: TWILIO_AUTH_TOKEN
+              value: 27a6cb9dc9cf78a8fafa3de3c5c649ef
+            - name: MONGO_USERNAME
+              value: root
+            - name: MONGO_PASSWORD
+              value: aivid123vision
+            - name: MONGO_HOST
+              value: operations-portal-mongodb.operations-portal.svc.cluster.local
+            - name: MONGO_PORT
+              value: '27017'
+            - name: MONGO_DB
+              value: operational-portal
+            - name: REDIS_HOST
+              value: operations-portal-redis.operations-portal.svc.cluster.local
+            - name: REDIS_PORT
+              value: '6379'
+            - name: SLACK_TOKEN
+              value: xoxb-1241914668946-2754184563251-6wDUmBDcEJWZaC7UQEVxKofG
+          ports:
+            - containerPort: {{ .Values.port }}
+              protocol: TCP
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources: {}

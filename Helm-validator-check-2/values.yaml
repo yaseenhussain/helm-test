@@ -1,0 +1,6 @@
+# Default values for social-distancing-retail.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+global:
+  namespace: default
+  imagePullSecrets: aividtech

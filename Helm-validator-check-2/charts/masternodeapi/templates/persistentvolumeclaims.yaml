@@ -1,0 +1,43 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: aivid-cloud-storage-video
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: aws-efs
+  volumeMode: Filesystem
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: aivid-cloud-storage-image
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: aws-efs
+  volumeMode: Filesystem
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: aivid-cloud-tensor-api
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 3Gi
+  storageClassName: aws-efs
+  volumeMode: Filesystem

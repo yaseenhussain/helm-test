@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: operational-portal-frontend
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: operational-portal-frontend
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: operational-portal-frontend
+  template:
+    metadata:
+      labels:
+        app: operational-portal-frontend
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name}}
+      serviceAccount: {{ .Values.serviceAccount.name}}
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      containers:
+        - name: {{ .Chart.Name }}
+          env:
+            - name: API_URL
+              value: >-
+                operational-portal-backend-service.{{ .Values.global.namespace }}.svc.cluster.local
+          ports:
+            - containerPort: {{ .Values.port }}
+              protocol: TCP
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: aivid-operations-certificate
+              readOnly: true
+              mountPath: /usr/src/app/ssl
+          image: 'aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}'
+      volumes:
+        - name: aivid-operations-certificate
+          secret:
+            secretName: aivid-operations-certificate
+            defaultMode: 420

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aivid-cloud-gateway
+  labels:
+    app: aivid-cloud-gateway
+    app.kubernetes.io/name: gateway-cloud
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: aivid-cloud-gateway
+  template:
+    metadata:
+      labels:
+        app: aivid-cloud-gateway
+    spec:
+      enableServiceLinks: false
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.port }}
+          env:
+            - name: DBHOST
+              value: http://aivid-cloud-db-service:9200
+            - name: STHOST
+              value: http://aivid-cloud-storage-service:8080
+            - name: NO_PROXY
+              value: '*'
+            - name: no_proxy
+              value: '*'

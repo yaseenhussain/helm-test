@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: operations-portal-redis
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: operations-portal-redis
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: operations-portal-redis
+  template:
+    metadata:
+      labels:
+        app: operations-portal-redis
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.global.imagePullSecrets }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "aividtech/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+          - containerPort: {{ .Values.port }}
+            protocol: TCP
+        volumeMounts:
+          - name: redis-conf
+            mountPath: /etc/redis
+          - name: redis-data
+            mountPath: /data
+      serviceAccountName: {{ .Values.serviceAccount.name}}
+      serviceAccount: {{ .Values.serviceAccount.name}}
+      volumes:
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: redisdata
+        - name: redis-conf
+          configMap:
+            name: redis-conf
+            items:
+              - key: redis.conf
+                path: redis.conf
+            defaultMode: 420

@@ -1,0 +1,14 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: mongodb
+  namespace: {{ .Values.global.namespace }}
+spec:
+  to:
+    kind: Service
+    name: operations-portal-mongodb
+  port:
+    targetPort: 32700
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect
