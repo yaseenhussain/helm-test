@@ -161,7 +161,7 @@ entries:
     urls:
     - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/social-distancing-retail-invalid.tgz
     version: "1.0.0"
-  social-distancing-invalid:
+  syntax-check-k8-objects:
   - apiVersion: v2
     appVersion: v1.1.1
     created: "2021-06-25T10:35:53.913350712Z"
@@ -171,4 +171,13 @@ entries:
     urls:
     - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/syntax-check-k8-objects.tgz
     version: "1.0.0"
+  Helm-validator-check:
+  - apiVersion: v2
+    appVersion: v1.1.1
+    created: "2021-06-25T10:35:53.913350712Z"
+    description: Helm validator check
+    name: Helm-validator-check
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/helm-validator-check.tgz
 generated: "2021-05-26T14:59:11.656550034-04:00"
