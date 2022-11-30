@@ -32,12 +32,9 @@ spec:
             mountPath: /etc/redis
           - name: redis-data
             mountPath: /data
-        env:
-        - name: redis-conf
-          valueFrom:
-            configMapKeyRef:
+        envFrom:
+        - configMapKeyRef:
               name: redis-conf
-              key: redis.conf
       serviceAccountName: {{ .Values.serviceAccount.name}}
       serviceAccount: {{ .Values.serviceAccount.name}}
       volumes:
