@@ -181,4 +181,14 @@ entries:
     urls:
     - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/helm-validator-check.tgz
     version: "1.0.0"
+  auto_mount_service_account_token:
+  - apiVersion: v2
+    appVersion: v1.1.1
+    created: "2021-06-25T10:35:53.913350712Z"
+    description: auto_mount_service_account_token
+    name: auto_mount_service_account_token
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/yaseenhussain/helm-test/master/auto_mount_service_account_token.tgz
+    version: "1.0.0"
 generated: "2021-05-26T14:59:11.656550034-04:00"
