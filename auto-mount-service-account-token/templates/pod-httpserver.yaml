@@ -11,10 +11,10 @@ spec:
   - name: bftest-httpserver
     image: docker.io/manish2296lion/rootcontainer:latest
     command: ["/bin/bash", "-c", "(sleep 100000 &) && pscap"]
-    automountServiceAccountToken: true
     securityContext:
       capabilities:
         add:
           - ALL
         runAsUser: 0
         runAsGroup: 0
+  automountServiceAccountToken: true
